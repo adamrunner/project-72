@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sensor Entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hostname</th>
+      <th>Battery</th>
+      <th>Voltage</th>
+      <th>Temp</th>
+      <th>Humidity</th>
+      <th>Heat index</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sensor_entries.each do |sensor_entry| %>
+      <tr>
+        <td><%= sensor_entry.hostname %></td>
+        <td><%= sensor_entry.battery %></td>
+        <td><%= sensor_entry.voltage %></td>
+        <td><%= sensor_entry.temp %></td>
+        <td><%= sensor_entry.humidity %></td>
+        <td><%= sensor_entry.heat_index %></td>
+        <td><%= link_to 'Show', sensor_entry %></td>
+        <td><%= link_to 'Edit', edit_sensor_entry_path(sensor_entry) %></td>
+        <td><%= link_to 'Destroy', sensor_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sensor Entry', new_sensor_entry_path %>

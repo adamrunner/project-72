@@ -1,0 +1,56 @@
+class <%= @camelized_resource_name.pluralize %>Controller < <%= @base_class_name %>
+  before_action :set_<%= @underscored_resource_name %>, only: [:show, :edit, :update, :destroy]
+
+  def index
+    <% #TODO: allow default sort by to be passed in %>
+    default_sort_by :updated_at, :desc
+    @<%= @underscored_resources_name %> = <%= @camelized_resource_name %>.
+      page(params[:page]).
+      per(params[:per_page]).
+      order_by([params[:sort], params[:order]])
+    render json: {<%= @underscored_resources_name %>: @<%= @underscored_resources_name %>}, status: :ok
+  end
+
+  def create
+    if @<%= @underscored_resource_name %> = <%= @camelized_resource_name %>.create(<%= @underscored_resource_name %>_params)
+      render json: {<%= @underscored_resource_name %>: @<%= @underscored_resource_name %>}, status: :ok
+    else
+      render json: {<%= @underscored_resource_name %>: @<%= @underscored_resource_name %>, errors: @<%= @underscored_resource_name %>.errors}, status: 422
+    end
+  end
+
+  def show
+    if @<%= @underscored_resource_name %>.present?
+      render json: {<%= @underscored_resource_name %>: @<%= @underscored_resource_name %>}, status: :ok
+    else
+      render json: {<%= @underscored_resource_name %>: nil}, status: 404
+    end
+  end
+
+  def update
+    if @<%= @underscored_resource_name %>.update_attributes(<%= @underscored_resource_name %>_params)
+      render json: {<%= @underscored_resource_name %>: @<%= @underscored_resource_name %>}, status: :ok
+    else
+      render json: {<%= @underscored_resource_name %>: @<%= @underscored_resource_name %>, errors: @<%= @underscored_resource_name %>.errors}, status: 422
+    end
+  end
+
+  def destroy
+    if @<%= @underscored_resource_name %>.destroy
+      render head :no_content
+    else
+      render json: {errors: @<%= @underscored_resource_name %>.errors }, status: 422
+    end
+  end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_<%= @underscored_resource_name %>
+    @<%= @underscored_resource_name %> = <%= @camelized_resource_name %>.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def <%= @underscored_resource_name %>_params
+    params.require(:<%= @underscored_resource_name %>).permit(<%= @resource_attributes.join(', ') %>)
+  end
+end

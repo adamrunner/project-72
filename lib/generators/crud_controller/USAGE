@@ -1,0 +1,9 @@
+Description:
+    Generates a basic JSON CRUD controller with pagination and sorting.
+    To use this generator you must have your model defined, and it must have fields defined on it.
+
+Example:
+    rails generate crud_controller Thing
+
+    This will create:
+        app/controllers/things_controller.rb
