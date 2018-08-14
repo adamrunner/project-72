@@ -1,4 +1,4 @@
-class EntriesController < ApplicationController
+class EntriesController < ApiController
   include DefaultMethods
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
 
@@ -54,7 +54,17 @@ class EntriesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def entry_params
     # TODO: require hostname
-    params.require(:entry).permit(:_id, :created_at, :updated_at, :hostname, :battery, :voltage, :temp, :humidity, :heat_index).merge(sensor_id: sensor_id)
+    params.require(:entry).permit(
+      :_id,
+      :created_at,
+      :updated_at,
+      :hostname,
+      :battery,
+      :voltage,
+      :temp,
+      :humidity,
+      :heat_index
+    ).merge(sensor_id: sensor_id)
   end
 
   def sensor_id

@@ -10,8 +10,8 @@ module Denormalizable
     def denormalize(*args)
       options, attribute_names = parse_args(args)
 
-      self.send(:field, "#{options[:to]}_id")
-      self.send(:validates, "#{options[:to]}_id", {presence: true})
+      self.send(:belongs_to, options[:to])
+
       prefix = normalize_prefix(options)
 
       self.denormalized_fields ||= {}.with_indifferent_access

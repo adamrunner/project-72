@@ -6,15 +6,19 @@ class Entry
   field :hostname,   type: String
   field :battery,    type: Float
   field :voltage,    type: Float
-  field :temp,       type: Float
+  field :temp,       type: Temperature
   field :humidity,   type: Float
   field :heat_index, type: Float
+
+  validates :hostname, presence: true
+  # validates :battery, :voltage, :temp, :humidity, :heat_index, numericality: true, allow_nil: true
 
   index(created_at: 1)
   index(hostname:   1)
   index(created_at: 1, hostname: 1)
 
   default_scope -> { order(created_at: -1) }
+
   before_validation :set_sensor_id, if: Proc.new {|e| e.sensor_id.blank? && e.hostname.present? }
 
   denormalize(
