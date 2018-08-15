@@ -52,6 +52,10 @@ module Denormalizable
       model_id = self.read_attribute("#{model_name}_id")
       model = model_name.to_s.camelize.constantize.find(model_id)
       new_attributes = denormalized_attributes(model_name)
+      # hack to work around the temperature value being the same
+      # for multiple intervals
+      # and the Sensor's updated_at timestamp would not be updated
+      model.updated_at = Time.now
       model.update_attributes(new_attributes)
     end
   end

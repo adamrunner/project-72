@@ -4,14 +4,13 @@ class Entry
   include Denormalizable
 
   field :hostname,   type: String
-  field :battery,    type: Float
-  field :voltage,    type: Float
+  field :battery,    type: Percent
+  field :voltage,    type: Volt
   field :temp,       type: Temperature
-  field :humidity,   type: Float
-  field :heat_index, type: Float
+  field :humidity,   type: Percent
+  field :heat_index, type: Temperature
 
   validates :hostname, presence: true
-  # validates :battery, :voltage, :temp, :humidity, :heat_index, numericality: true, allow_nil: true
 
   index(created_at: 1)
   index(hostname:   1)

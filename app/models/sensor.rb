@@ -11,7 +11,7 @@ class Sensor
 
   has_many :entries
 
-  default_scope -> { order(updated_at: -1) }
+  default_scope -> { order(hostname: 1) }
 
   # field :entries_count, type: Integer
   # field :current_battery,    type: Float
