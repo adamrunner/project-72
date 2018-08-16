@@ -15,6 +15,7 @@ class EntriesController < ApiController
 
   def create
     if @entry = Entry.create(entry_params)
+      broadcast_message
       render json: {entry: @entry}, status: :ok
     else
       render json: {entry: @entry, errors: @entry.errors}, status: 422
@@ -49,6 +50,12 @@ class EntriesController < ApiController
   # Use callbacks to share common setup or constraints between actions.
   def set_entry
     @entry = Entry.find(params[:id])
+  end
+
+  def broadcast_message
+    ActionCable.server.broadcast 'dashboard_channel',
+                                 entry:  @entry,
+                                 sensor_id: "#{@entry.sensor_id}"
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
