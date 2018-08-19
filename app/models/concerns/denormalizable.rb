@@ -1,7 +1,7 @@
 module Denormalizable
   extend ActiveSupport::Concern
   included do
-    before_create :update_denormalized_models
+    after_create :update_denormalized_models
   end
 
   module ClassMethods
@@ -10,7 +10,7 @@ module Denormalizable
     def denormalize(*args)
       options, attribute_names = parse_args(args)
 
-      self.send(:belongs_to, options[:to])
+      self.send(:belongs_to, options[:to], {counter_cache: true})
 
       prefix = normalize_prefix(options)
 
@@ -18,6 +18,8 @@ module Denormalizable
       self.denormalized_fields[options[:to]] = attribute_names.map {|name| {"#{name}" => "#{prefix}#{name}"}}.inject(:merge)
 
       destination_class = options[:to].to_s.camelize.constantize
+
+      destination_class.send(:field, "#{self.name.downcase.pluralize}_count", {type: Integer})
 
       attribute_names.each do |attribute_name|
         field_type  = self.fields[attribute_name.to_s].type
@@ -52,11 +54,8 @@ module Denormalizable
       model_id = self.read_attribute("#{model_name}_id")
       model = model_name.to_s.camelize.constantize.find(model_id)
       new_attributes = denormalized_attributes(model_name)
-      # hack to work around the temperature value being the same
-      # for multiple intervals
-      # and the Sensor's updated_at timestamp would not be updated
-      model.updated_at = Time.now
-      model.update_attributes(new_attributes)
+      model.attributes = new_attributes
+      model.save
     end
   end
 

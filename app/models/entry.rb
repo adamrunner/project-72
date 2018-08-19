@@ -21,7 +21,7 @@ class Entry
   before_validation :set_sensor_id, if: Proc.new {|e| e.sensor_id.blank? && e.hostname.present? }
 
   denormalize(
-    :battery, :voltage, :temp, :humidity, :heat_index,
+    :battery, :voltage, :temp, :humidity, :heat_index, :updated_at,
     to: :sensor,
     prefix: :current
   )

@@ -1,5 +1,8 @@
 class Unit
+  include Comparable
+  attr :value
   attr_reader :unit, :value
+
   def initialize(value, unit = nil)
     @value = value.to_f
     @unit = unit
@@ -16,8 +19,6 @@ class Unit
   def to_f
     @value.to_f
   end
-
-  # TODO: comparison operators, equality operators
 
   def mongoize
     {

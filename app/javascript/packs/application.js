@@ -6,5 +6,12 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+import Vue from 'vue'
+import sensorList from '../components/sensor_list.vue'
+// import HighchartsVue from 'highcharts-vue'
+document.addEventListener('DOMContentLoaded', () => {
+  var appElement = document.body.appendChild(document.createElement('app'))
 
-console.log('Hello World from Webpacker')
+  window.app = new Vue(sensorList).$mount(appElement)
+  app.sensors = window.sensorData
+})

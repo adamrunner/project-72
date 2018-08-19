@@ -53,9 +53,8 @@ class EntriesController < ApiController
   end
 
   def broadcast_message
-    ActionCable.server.broadcast 'dashboard_channel',
-                                 entry:  @entry,
-                                 sensor_id: "#{@entry.sensor_id}"
+    # TODO: see if we need to move this elsewhere for transmitting the message
+    ActionCable.server.broadcast('dashboard_channel', @entry.sensor.as_json)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -64,7 +63,6 @@ class EntriesController < ApiController
     params.require(:entry).permit(
       :_id,
       :created_at,
-      :updated_at,
       :hostname,
       :battery,
       :voltage,
