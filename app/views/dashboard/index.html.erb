@@ -1,3 +1,4 @@
 <script>
-  window.sensorData = <%= @sensors.to_json.html_safe %>
+  window.sensorData = <%== @sensors.map {|s| {s._id.to_s => s}}.inject(&:merge).to_json %>
+  window.chartData  = <%== render "chart_data.json" %>
 </script>

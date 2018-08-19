@@ -1,4 +1,0 @@
-<% field_names.each do |field_name| %>
-  <li class="heading"><%= field_name.titleize %>:</li>
-  <li class="temperature-value"><span class="temp_value"><%= sensor.send(field_name) || "N/A" %></span></li>
-<% end %>

@@ -15,7 +15,7 @@ class EntriesController < ApiController
 
   def create
     if @entry = Entry.create(entry_params)
-      broadcast_message
+      # broadcast_message
       render json: {entry: @entry}, status: :ok
     else
       render json: {entry: @entry, errors: @entry.errors}, status: 422
@@ -52,10 +52,10 @@ class EntriesController < ApiController
     @entry = Entry.find(params[:id])
   end
 
-  def broadcast_message
-    # TODO: see if we need to move this elsewhere for transmitting the message
-    ActionCable.server.broadcast('dashboard_channel', @entry.sensor.as_json)
-  end
+  # def broadcast_message
+  #   # TODO: see if we need to move this elsewhere for transmitting the message
+  #   ActionCable.server.broadcast('dashboard_channel', @entry.sensor.as_json)
+  # end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def entry_params

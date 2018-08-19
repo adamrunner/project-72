@@ -6,12 +6,18 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+import moment from 'moment'
+window.moment = moment
 import Vue from 'vue'
 import sensorList from '../components/sensor_list.vue'
-// import HighchartsVue from 'highcharts-vue'
+import HighchartsVue from 'highcharts-vue'
+import Chart from '../components/chart.vue'
 document.addEventListener('DOMContentLoaded', () => {
   var appElement = document.body.appendChild(document.createElement('app'))
-
+  var chartElement = document.body.appendChild(document.createElement('app'))
   window.app = new Vue(sensorList).$mount(appElement)
   app.sensors = window.sensorData
+
+  window.chart = new Vue(Chart).$mount(chartElement)
+  chart.chartData = window.chartData
 })

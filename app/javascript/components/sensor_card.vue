@@ -34,7 +34,8 @@
       <p class="card-text">{{description}}</p>
     </div>
     <div class="card-footer">
-      <p class="text-muted time_ago">Updated {{fromNow}}</p>
+      <p class="text-muted time_ago">Updated {{current_updated_at}}</p>
+      <p class="text-muted time_ago">{{friendlyTimeStamp}}</p>
       <p class="text-muted time_ago">Entries: {{entries_count}}</p>
     </div>
   </div>
@@ -44,14 +45,9 @@
 <script>
   import moment from 'moment'
   export default {
-    computed: {
-      fromNow: function() {
-        return moment(this.updated_at).fromNow()
-      }
-    },
     watch: {
-      current_updated_at: function() {
-        this.fromNow = moment(this.updated_at).fromNow()
+      current_updated_at: function(value) {
+        this.friendlyTimeStamp = moment(value).calendar()
       }
     },
     props: {
@@ -71,6 +67,7 @@
     },
     data: function () {
       return {
+        friendlyTimeStamp: moment(this.current_updated_at).calendar()
       }
     }
   }

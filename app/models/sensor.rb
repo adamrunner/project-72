@@ -13,7 +13,9 @@ class Sensor
 
   before_save :set_battery_state, if: -> { current_battery_changed? }
 
-  has_many :entries
+  after_save :broadcast_message, if: -> { current_updated_at_changed? }
+
+  has_many :entries, order: {created_at: -1}
 
   default_scope -> { order(hostname: 1) }
 
@@ -27,9 +29,22 @@ class Sensor
   index(hostname: 1)
   index(updated_at: -1)
 
+  def todays_entries
+    #TODO: this forces the time zone of the query to be my preferrred time zone, users should be able to configure this
+    entries.where(created_at: {"$gt": Date.today.midnight.in_time_zone("America/Los_Angeles") }).order(created_at: 1)
+  end
+
   private
   def set_battery_state
     self.current_battery_low = current_battery < battery_threshold
     true
+  end
+
+  def broadcast_message
+    #TODO: Is this the correct place for this?
+    #TODO: Make a service object to handle the transmission?
+    #TODO: entries_count is off by 1 here due to callback ordering.
+    #TODO: Broadcastable module?
+    ActionCable.server.broadcast('dashboard_channel', self.as_json)
   end
 end
