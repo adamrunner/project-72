@@ -6,7 +6,7 @@ class Percent < Unit
   end
 
   def initialize(value, unit = "%")
-    @value = value
+    @value = value.to_f
     @unit  = unit
   end
 
