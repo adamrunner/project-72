@@ -73,6 +73,6 @@ class EntriesController < ApiController
   end
 
   def sensor_id
-    Sensor.find_or_create_by(hostname: params[:hostname]).id
+    Sensor.find_or_create_by(hostname: params[:entry].dig(:hostname)).id
   end
 end
