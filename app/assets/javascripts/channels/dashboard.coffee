@@ -10,7 +10,7 @@ App.dashboard = App.cable.subscriptions.create "DashboardChannel",
   received: (data) ->
 
     seriesData = chart.chartData.find (element) =>
-      element.name == data.hostname
+      element.name == data.description
 
     seriesData.data.push([moment(data.current_updated_at).valueOf(), data.current_temp.value])
 

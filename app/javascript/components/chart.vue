@@ -2,7 +2,6 @@
   <highcharts :options="chartOptions"></highcharts>
 </template>
 <script>
-  // import Highcharts from 'highcharts'
   import {Chart} from 'highcharts-vue'
   export default {
     components: {
@@ -37,7 +36,7 @@
           series: [],
           yAxis: {
             title: {
-              text: 'Temperature Over Time'
+              text:'ºF'
             }
           },
           legend: {
@@ -50,5 +49,5 @@
     }
   }
 </script>
-<style scoped>
+<style>
 </style>

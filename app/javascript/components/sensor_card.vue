@@ -5,11 +5,11 @@
       <span class="fa fa-times"></span>
     </a>
 
-    <h4 class="card-header">{{hostname}}</h4>
+    <h4 class="card-header">{{description}}</h4>
     <ul class="temperature-info">
+      <template v-if='current_battery'>
       <li class="heading">Battery Low</li>
       <li class="temperature-value"><span class="temp_value">{{current_battery_low}}</span></li>
-      <template v-if='current_battery'>
         <li class="heading">Battery</li>
         <li class="temperature-value"><span class="temp_value">{{current_battery.value}}{{current_battery.unit}}</span></li>
       </template>
@@ -31,10 +31,10 @@
       </template>
     </ul>
     <div class="card-block">
-      <p class="card-text">{{description}}</p>
+      <p class="card-text">{{hostname}}</p>
     </div>
     <div class="card-footer">
-      <p class="text-muted time_ago">Updated {{current_updated_at}}</p>
+      <p class="text-muted time_ago">Updated {{timestamp}}</p>
       <p class="text-muted time_ago">{{friendlyTimeStamp}}</p>
       <p class="text-muted time_ago">Entries: {{entries_count}}</p>
     </div>
@@ -45,6 +45,11 @@
 <script>
   import moment from 'moment'
   export default {
+    computed: {
+      timestamp: function() {
+        return moment(this.current_updated_at).toString()
+      }
+    },
     watch: {
       current_updated_at: function(value) {
         this.friendlyTimeStamp = moment(value).calendar()
@@ -73,9 +78,5 @@
   }
 </script>
 
-<style scoped>
-  p {
-    font-size: 2em;
-    text-align: center;
-  }
+<style>
 </style>
