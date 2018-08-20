@@ -16,6 +16,7 @@
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
 guard 'livereload' do
+  interactor :off
   extensions = {
     css: :css,
     scss: :css,
