@@ -10,7 +10,7 @@ class Sensor
   field :description,         type: String
   field :battery_threshold,   type: Percent, default: Percent.zero_percent
   field :current_battery_low, type: Boolean, default: false
-
+  field :battery_present,     type: Boolean, default: false
   before_save :set_battery_state, if: -> { current_battery_changed? }
 
   after_save :broadcast_message, if: -> { current_updated_at_changed? }

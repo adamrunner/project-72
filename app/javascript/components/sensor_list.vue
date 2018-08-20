@@ -1,4 +1,3 @@
-
 <template>
   <div class="card-deck sensor-list">
     <sensor-card v-for="sensor in sensors"

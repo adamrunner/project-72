@@ -10,12 +10,28 @@
     watch: {
       chartData: function(value) {
         this.chartOptions.series = value
+      },
+      title: function(value){
+        this.chartOptions.title.text = value
+      },
+      x_title: function(value){
+        this.chartOptions.xAxis.title = value
+      },
+      y_title: function(value){
+        this.chartOptions.yAxis.title = value
+      },
+      legend: function(value){
+        this.chartOptions.legend.enabled = value
       }
     },
     computed: {
     },
     props: {
-      chartData: []
+      chartData: [],
+      title: '',
+      x_title:'',
+      y_title:'',
+      legend:''
     },
     data: function () {
       return {
@@ -24,7 +40,7 @@
             zoomType: 'x'
           },
           title: {
-            text: 'Temperature Over Time'
+            text: ''
           },
           subtitle: {
             text: document.ontouchstart === undefined ?
@@ -36,7 +52,7 @@
           series: [],
           yAxis: {
             title: {
-              text:'ºF'
+              text:''
             }
           },
           legend: {

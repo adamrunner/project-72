@@ -9,15 +9,11 @@
 import moment from 'moment'
 window.moment = moment
 import Vue from 'vue'
-import sensorList from '../components/sensor_list.vue'
 import HighchartsVue from 'highcharts-vue'
-import Chart from '../components/chart.vue'
-document.addEventListener('DOMContentLoaded', () => {
-  var appElement = document.body.appendChild(document.createElement('app'))
-  var chartElement = document.body.appendChild(document.createElement('app'))
-  window.app = new Vue(sensorList).$mount(appElement)
-  app.sensors = window.sensorData
+import Dashboard from '../components/dashboard.vue'
 
-  window.chart = new Vue(Chart).$mount(chartElement)
-  chart.chartData = window.chartData
+document.addEventListener('DOMContentLoaded', () => {
+  var dashboardElement   = document.body.appendChild(document.createElement('app'))
+  window.dashboard       = new Vue(Dashboard).$mount(dashboardElement)
+  dashboard.initialState = window.chartData
 })
