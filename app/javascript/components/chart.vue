@@ -12,7 +12,7 @@
     props: {
       chartData: Array,
       title:  String,
-      x_title:String,
+      // x_title:String,
       y_title:String,
       legend: String
     },
