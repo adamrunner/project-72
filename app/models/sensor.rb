@@ -11,6 +11,9 @@ class Sensor
   field :battery_threshold,   type: Percent, default: Percent.zero_percent
   field :current_battery_low, type: Boolean, default: false
   field :battery_present,     type: Boolean, default: false
+
+  validates_presence_of :hostname
+
   before_save :set_battery_state, if: -> { current_battery_changed? }
 
   after_save :broadcast_message, if: -> { current_updated_at_changed? }
@@ -26,7 +29,7 @@ class Sensor
   # field :current_humidity,   type: Percent
   # field :current_heat_index, type: Temperature
 
-  index(hostname: 1)
+  index({hostname: 1}, {unique: true})
   index(updated_at: -1)
 
   def todays_entries

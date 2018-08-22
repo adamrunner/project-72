@@ -162,3 +162,9 @@ test:
         read:
           mode: :primary
         max_pool_size: 1
+production:
+  clients:
+    default:
+      database: project72_production
+      hosts:
+        - localhost:27017
