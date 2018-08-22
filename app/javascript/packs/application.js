@@ -14,6 +14,7 @@ import Dashboard from '../components/dashboard.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
   var dashboardElement   = document.body.appendChild(document.createElement('app'))
-  window.dashboard       = new Vue(Dashboard).$mount(dashboardElement)
-  dashboard.initialState = window.chartData
+  Dashboard.data         = window.data
+  window.dashboard       = new Vue(Dashboard)
+  dashboard.$mount(dashboardElement)
 })

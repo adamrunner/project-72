@@ -7,31 +7,14 @@
     components: {
       highcharts: Chart
     },
-    watch: {
-      chartData: function(value) {
-        this.chartOptions.series = value
-      },
-      title: function(value){
-        this.chartOptions.title.text = value
-      },
-      x_title: function(value){
-        this.chartOptions.xAxis.title = value
-      },
-      y_title: function(value){
-        this.chartOptions.yAxis.title = value
-      },
-      legend: function(value){
-        this.chartOptions.legend.enabled = value
-      }
-    },
     computed: {
     },
     props: {
-      chartData: [],
-      title: '',
-      x_title:'',
-      y_title:'',
-      legend:''
+      chartData: Array,
+      title:  String,
+      x_title:String,
+      y_title:String,
+      legend: String
     },
     data: function () {
       return {
@@ -40,19 +23,20 @@
             zoomType: 'x'
           },
           title: {
-            text: ''
+            text: this.title
           },
           subtitle: {
             text: document.ontouchstart === undefined ?
                   'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
           },
           xAxis: {
+            title: this.x_title,
             type: 'datetime'
           },
-          series: [],
+          series: this.chartData,
           yAxis: {
             title: {
-              text:''
+              text: this.y_title
             }
           },
           legend: {

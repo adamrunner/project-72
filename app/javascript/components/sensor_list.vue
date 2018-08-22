@@ -11,7 +11,7 @@
   export default {
     components: { SensorCard },
     props: {
-      sensors: {}
+      sensors: Object
     },
     data: function () {
       return {
