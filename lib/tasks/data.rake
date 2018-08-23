@@ -11,7 +11,7 @@ namespace :data do
 
   def convert_data
     entries = Entry.all
-    total   = entry.all.count
+    total   = entries.all.count
     entries.each_with_index do |entry, i|
       printf("\rMigrating Entries: %d/%d", i+1, total)
       attributes = entry.attributes
