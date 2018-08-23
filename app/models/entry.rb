@@ -27,6 +27,6 @@ class Entry
   )
 
   def set_sensor_id
-    self.sensor_id = Sensor.find_by(hostname: hostname).id
+    self.sensor_id = Sensor.find_or_create_by(hostname: hostname).id
   end
 end
