@@ -11,7 +11,9 @@ namespace :data do
 
   def convert_data
     entries = Entry.all
-    entries.each do |entry|
+    total   = entry.all.count
+    entries.each_with_index do |entry, i|
+      printf("\rMigrating Entries: %d/%d", i+1, total)
       attributes = entry.attributes
       entry.humidity   = Percent.new(attributes[:humidity]) if attributes[:humidity]
       entry.battery    = Percent.new(attributes[:battery])  if attributes[:battery]
