@@ -4,10 +4,11 @@ module Services
       attr_accessor :token
       def initialize(options = {})
         @endpoint = options[:endpoint] || "/auth"
-        @username = options[:user]     || "fakeuser@localhost"
+        @email = options[:email] || "fakeuser@localhost"
         @password = options[:password] || "fakepassword"
+        @baseurl  = options[:baseurl]  || "http://localhost:3000"
         @session  = Patron::Session.new({ :timeout => 10,
-                                 :base_url => 'http://localhost:3000',
+                                 :base_url => @base_url,
                                  :headers => {
                                    'User-Agent'   => 'Project72-Agent/1.0',
                                    'Content-Type' => 'application/json'} } )
@@ -18,7 +19,7 @@ module Services
 
       def request
         puts "Logging in to API"
-        response = @session.post(@endpoint, {user: @username, password: @password})
+        response = @session.post(@endpoint, {email: @email, password: @password})
         if response.status == 200
           @token = JSON.parse(response.body)["token"]
         else
