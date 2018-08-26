@@ -11,10 +11,17 @@ window.moment = moment
 import Vue from 'vue'
 import HighchartsVue from 'highcharts-vue'
 import Dashboard from '../components/dashboard.vue'
+import Login from '../pages/login.vue'
 
 document.addEventListener('DOMContentLoaded', () => {
-  var dashboardElement   = document.body.appendChild(document.createElement('app'))
-  Dashboard.data         = window.data
-  window.dashboard       = new Vue(Dashboard)
-  dashboard.$mount(dashboardElement)
+  if (window.user){
+    var dashboardElement   = document.body.appendChild(document.createElement('app'))
+    Dashboard.data         = window.data
+    window.dashboard       = new Vue(Dashboard)
+    dashboard.$mount(dashboardElement)
+  }else{
+    var loginElement = document.body.appendChild(document.createElement('app'))
+    window.login       = new Vue(Login)
+    login.$mount(loginElement)
+  }
 })
