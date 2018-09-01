@@ -2,8 +2,10 @@ module Services
   module Agent
     class AuthApi
       attr_accessor :token
+      # TODO: abstract API route, host, protocol to config var or constant?
+      #
       def initialize(options = {})
-        @endpoint = options[:endpoint] || "/auth"
+        @endpoint = options[:endpoint] || "/users/authenticate"
         @email = options[:email] || "fakeuser@localhost"
         @password = options[:password] || "fakepassword"
         @baseurl  = options[:baseurl]  || "http://localhost:3000"
