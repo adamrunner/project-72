@@ -6,8 +6,9 @@
   </div>
 </template>
 <script>
-  import SensorList from './sensor_list'
-  import Chart      from './chart'
+  import HighchartsVue from 'highcharts-vue'
+  import SensorList from '../components/sensor_list'
+  import Chart      from '../components/chart'
   export default {
     components: {
       'chart': Chart,
