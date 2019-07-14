@@ -1,0 +1,11 @@
+#!/bin/bash
+# Mongodump with SSH 
+
+# dump from adamrunner.com mongodb -> restore to local mongodb
+
+
+ssh adamrunner.com "mongodump -d project72_production --gzip --archive=/tmp/project72_backup.tar.gz"
+scp adamrunner.com:/tmp/project72_backup.tar.gz ./tmp/project72_backup.tar.gz
+
+mongorestore --gzip --archive=./tmp/project72_backup.tar.gz --drop --nsFrom="project72_production.*" --nsTo="project72_development.*"
+
