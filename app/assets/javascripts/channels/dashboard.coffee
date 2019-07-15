@@ -1,4 +1,4 @@
-App.dashboard = App.cable.subscriptions.create "DashboardChannel",
+App.dashboard = App.cable.subscriptions.create "dasboard_channel",
   connected: ->
     console.log('connected to channel')
     # Called when the subscription is ready for use on the server
