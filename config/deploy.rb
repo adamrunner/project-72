@@ -65,5 +65,5 @@ namespace :deploy do
 
   before :starting,     :check_revision
   after  :finishing,    :cleanup
-  # after  :finishing,    :restart
+  after  :finishing,    :restart
 end
