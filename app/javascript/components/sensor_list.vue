@@ -1,15 +1,29 @@
 <template>
-  <div class="card-deck sensor-list">
-    <sensor-card v-for="sensor in sensors"
-      v-bind:key="sensor._id"
-      v-bind="sensor"
-      ></sensor-card>
-  </div>
+  <table class="table table-bordered table-striped">
+    <thead> 
+      <th>Description</th>
+      <th>Hostname</th>
+      <th>Temp</th>
+      <th>Humidity</th>
+      <th>Heat Index</th>
+      <th>Voltage</th>
+      <th>Battery</th>
+      <th>Entries</th>
+      <th>Friendly Time Stamp</th>
+      <th>Timestamp</th>
+    </thead>
+    <tbody>
+      <sensor-row v-for="sensor in sensors"
+        v-bind:key="sensor._id"
+        v-bind="sensor"
+        ></sensor-row>      
+    </tbody>
+  </table>
 </template>
 <script>
-  import SensorCard from './sensor_card.vue'
+  import SensorRow from './sensor_row.vue'
   export default {
-    components: { SensorCard },
+    components: { SensorRow },
     props: {
       sensors: Object
     },
