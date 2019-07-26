@@ -1,4 +1,4 @@
-### Project72 (just a cool name) 
+### Project72
 
 Collects, persists and displays sensor data from a network of sensors. 
 
@@ -18,16 +18,17 @@ Listens to the MQTT Topic of `data` for a key-value encoded payload. The payload
 `HOSTNAME:ESP_82544,TEMP:83.31,...`
 After receiving a payload, the agent will parse it and subsequently create new entries within the database for both the Sensor (if not a currently known sensor) and whatever values were passed to the message queue. It will downcase the keys. 
 
-Technology Stack: 
-Mosquitto - MQTT Broker
-Rails 5.2 - Application Framework 
-Vue.js - Frontend Component JS Framework
-ActionCable - Used for transmitting messages to the UI after they're received.
-Puma - Application Server 
-Nginx - Web Server
-MongoDB - Persistence Layer / Database 
+**Technology Stack:**
 
-Deployment: 
+- Mosquitto - MQTT Broker
+- Rails 5.2 - Application Framework 
+- Vue.js - Frontend Component JS Framework
+- ActionCable - Used for transmitting messages to the UI after they're received.
+- Puma - Application Server 
+- Nginx - Web Server
+- MongoDB - Persistence Layer / Database 
+
+**Deployment:**
 
 Uses `capistrano` for deployment; currently requires actual pre-compilation (and commit) of the assets from the asset pipeline and webpack. Should script the following: 
 
