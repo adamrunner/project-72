@@ -16,7 +16,7 @@ class Entry
   index(hostname:   1)
   index(created_at: 1, hostname: 1)
 
-  default_scope -> { order(created_at: -1) }
+  default_scope -> { order(created_at: 1) }
 
   before_validation :set_sensor_id, if: Proc.new {|e| e.sensor_id.blank? && e.hostname.present? }
 
