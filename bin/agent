@@ -1,2 +1,0 @@
-#! /bin/bash
-cd ~/dev/project_72_agent && /usr/local/bin/node index.js

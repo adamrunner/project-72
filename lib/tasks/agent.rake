@@ -7,7 +7,9 @@ namespace :agent do
     @client.get('data') do |topic, payload|
       puts "#{DateTime.now.iso8601} - #{payload}"
       attributes = Services::Agent::MessageReceiver.parse(payload)
-      Entry.create(attributes)
+      entry      = Entry.create(attributes)
+      
+      ActionCable.server.broadcast('dashboard_channel', entry.sensor.as_json)
     end
   end
 end
