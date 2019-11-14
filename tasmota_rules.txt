@@ -1,0 +1,3 @@
+Rule1
+  on button1#state do publish cmnd/ring2/power %value% endon
+  on button2#state do publish cmnd/strip1/power %value% endon

@@ -3,12 +3,22 @@ class Entry
   include Mongoid::Timestamps
   include Denormalizable
 
-  field :hostname,   type: String
-  field :battery,    type: Percent
-  field :voltage,    type: Volt
-  field :temp,       type: Temperature
-  field :humidity,   type: Percent
-  field :heat_index, type: Temperature
+  field :hostname,              type: String
+  field :battery,               type: Percent
+  field :voltage,               type: Volt
+  field :temp,                  type: Temperature
+  field :humidity,              type: Percent
+  field :heat_index,            type: Temperature
+  field :read_at,               type: DateTime
+  field :total_start_timestamp, type: DateTime
+  field :total_kwh_since_start, type: WattHour
+  field :yesterday_kwh,         type: WattHour
+  field :today_kwh,             type: WattHour
+  field :power,                 type: Watt
+  field :apparent_power,        type: VoltAmp
+  field :reactive_power,        type: VoltAmp
+  field :power_factor,          type: Float
+  field :current_draw,          type: Amp
 
   validates :hostname, presence: true
 
