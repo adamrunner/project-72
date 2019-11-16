@@ -1,4 +1,3 @@
-require 'services/tasmota_agent'
 namespace :tasmota_agent do
   task start: :environment do
     puts "Starting Tasmota Background Agent..."
