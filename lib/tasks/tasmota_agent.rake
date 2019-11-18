@@ -8,9 +8,9 @@ namespace :tasmota_agent do
     })
     # TODO: does this wild card work for listening to a wildcard topic?
     @client.get("#") do |topic, payload|
-      puts "#{sensor_hostname} - #{payload}"
       if topic.match(/tele\/(.+)\/SENSOR/)
-        sensor_hostname = topic.match(/\/(.+)\//)[1]
+        sensor_hostname = topic.match(/tele\/(.+)\/SENSOR/)[1]
+        puts "#{sensor_hostname} - #{payload}"
 
         data = JSON.parse(payload)
         data.merge!(hostname: sensor_hostname)
