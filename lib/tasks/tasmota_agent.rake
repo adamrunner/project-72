@@ -6,7 +6,7 @@ namespace :tasmota_agent do
       host: "adamrunner.com",
       port: 1883
     })
-    # TODO: does this wild card work for listening to a wildcard topic?
+
     @client.get("#") do |topic, payload|
       if topic.match(/tele\/(.+)\/SENSOR/)
         sensor_hostname = topic.match(/tele\/(.+)\/SENSOR/)[1]
