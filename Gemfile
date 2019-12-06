@@ -10,7 +10,7 @@ gem 'mongoid_rails_migrations', '~> 1.1'
 gem 'kaminari-mongoid', '~> 1'
 gem 'bson_ext'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 # Use SCSS for stylesheets
 gem 'sassc-rails', '~> 1.3'
 # Use Uglifier as compressor for JavaScript assets
