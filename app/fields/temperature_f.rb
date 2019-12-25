@@ -5,6 +5,7 @@ class TemperatureF < Unit
   end
 
   def convert_to_c
-    TemperatureC.new((@value − 32) * 5/9)
+    centigrade = ((@value - 32.0) * 5/9).round(2)
+    TemperatureC.new(centigrade)
   end
 end

@@ -5,6 +5,7 @@ class TemperatureC < Unit
   end
 
   def convert_to_f
-    TemperatureF.new((@value * 9/5) + 32)
+    fahrenheit = ((@value * 9/5) + 32).round(2)
+    TemperatureF.new(fahrenheit)
   end
 end
