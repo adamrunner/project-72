@@ -8,6 +8,7 @@ class Entry
   field :voltage,               type: Volt
   field :temp,                  type: Temperature
   field :humidity,              type: Percent
+  field :pressure,              type: Pressure
   field :heat_index,            type: Temperature
   field :read_at,               type: DateTime
   field :total_start_timestamp, type: DateTime
