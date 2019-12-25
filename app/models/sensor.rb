@@ -6,21 +6,20 @@ class Sensor
   # embeds_one :max_temperature_entry, class_name: Entry
   # embeds_one :min_temperature_entry, class_name: Entry
   # embeds_one :average_temp_entry, class_name: Entry
-  field :hostname,            type: String
+  field :name,                type: String
   field :description,         type: String
+  # TODO: Move Battery to embeds_one
   field :battery_threshold,   type: Percent, default: Percent.zero_percent
   field :current_battery_low, type: Boolean, default: false
   field :battery_present,     type: Boolean, default: false
 
-  validates_presence_of :hostname
-
-  before_save :set_battery_state, if: -> { current_battery_changed? }
+  validates_presence_of :name
 
   # after_save :broadcast_message, if: -> { current_updated_at_changed? }
 
   has_many :entries, order: {created_at: -1}
 
-  default_scope -> { order(hostname: 1) }
+  default_scope -> { order(name: 1) }
 
   # field :entries_count, type: Integer
   # field :current_battery,    type: Percent
@@ -30,16 +29,10 @@ class Sensor
   # field :current_heat_index, type: Temperature
 
   index({hostname: 1}, {unique: true})
-  index(updated_at: -1)
+  index({updated_at: -1})
 
   def todays_entries
     #TODO: this forces the time zone of the query to be my preferrred time zone, users should be able to configure this
     entries.where(created_at: {"$gt": 24.hours.ago }).order(created_at: 1)
-  end
-
-  private
-  def set_battery_state
-    self.current_battery_low = current_battery < battery_threshold
-    true
   end
 end

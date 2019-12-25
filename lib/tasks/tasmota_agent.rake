@@ -9,11 +9,11 @@ namespace :tasmota_agent do
 
     @client.get("#") do |topic, payload|
       if topic.match(/tele\/(.+)\/SENSOR/)
-        sensor_hostname = topic.match(/tele\/(.+)\/SENSOR/)[1]
-        puts "#{sensor_hostname} - #{payload}"
+        sensor_name = topic.match(/tele\/(.+)\/SENSOR/)[1]
+        puts "#{sensor_name} - #{payload}"
 
         data = JSON.parse(payload)
-        data.merge!(hostname: sensor_hostname)
+        data.merge!(name: sensor_name)
         c = Mongoid.default_client
         c[:unmapped_entries].insert_one(data)
       end
