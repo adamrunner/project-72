@@ -259,6 +259,7 @@ GEM
       rspec-mocks (~> 3.8.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
+    ruby-units (2.3.1)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.7)
@@ -357,6 +358,7 @@ DEPENDENCIES
   rb-fsevent
   redis (~> 4.0)
   rspec-rails (~> 3.8)
+  ruby-units
   sassc-rails (~> 1.3)
   selenium-webdriver
   spring
