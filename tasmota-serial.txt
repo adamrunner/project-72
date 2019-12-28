@@ -1,0 +1,77 @@
+esptool.py --port /dev/cu.usbserial-A50285BI --baud 921600 --after no_reset write_flash --flash_mode dio 0x00000 /Users/adamrunner/Downloads/sonoff.bin --erase-all
+
+# Dark Theme
+WebColor {"WebColor":["#eaeaea","#252525","#4f4f4f","#000000","#dddddd","#65c115","#1f1f1f","#ff5661","#008000","#faffff","#1fa3ec","#0e70a4","#d43535","#931f1f","#47c266","#5aaf6f","#faffff","#999999","#eaeaea"]}
+
+# Initial Setup Commands
+# Sets SSID / Password / MQTT Host / MQTT User / MQTT Password / Longitude / Latitude / Altitude / Timezone
+Backlog SSID1 home-network; Password1 tacocat1234; MqttHost 192.168.1.90; MqttUser SONOFF_USER; MqttPassword tacocat1234; Timezone -8; Altitude 58; Latitude 45.486717; Longitude -122.6791734; PowerRetain 1; SetOption64 1; OtaUrl http://192.168.1.90/downloads/sonoff.bin
+
+# Rule to Trigger Heater Toggle
+Rule1 ON Tele-ANALOG#Temperature < 70.0 DO Power 1 ENDON
+
+# Auto-Off Rule for Light w/button
+Rule1
+  on Power1#state do backlog Power1 %value%; RuleTimer1 1800 endon
+  on Rules#Timer=1 do power1 off endon
+
+# Auto-Off Rule for Light w/any trigger
+Rule1
+  on Power1#State do backlog power1 %value%; RuleTimer1 1800 endon
+  on Rules#Timer=1 do power1 off endon
+
+# Bathroom Fan Rule (installed on bathroom lights)
+Rule2
+  On Tele-BME280#Humidity>48.0 DO Publish2 cmnd/Bathroom_Fan/POWER 1 endon
+  On Tele-BME280#Humidity<47.0 DO Publish2 cmnd/Bathroom_Fan/POWER 0 endon
+  On Rules#Timer=1 DO IF BME280#Humidity<48.0 Publish2 cmd/Bathroom_Fan/POWER 0; IF BME280#Humidity>48.0 Publish2 cmd/Bathroom_Fan/POWER 1; ENDON
+
+# Turn on Light + Fan if both are off and fan is switched on
+# Turn on Fan if Humidity increases by 20%
+# Store Rolling Average of Humidity in Variable - Turn off Fan when this value is reached
+# Turn off Fan
+
+# Rule for receiving RF signal, then run command between DO and ENDON
+Rule1
+    ON RfReceived#RfKey=4 DO Backlog Publish2 cmd/SONOFF_6AA2D9/Color 00000000FF; Publish2 cmnd/SONOFF_6AA2D9/Power 2; ENDON
+    ON RfReceived#RfKey=2 DO Publish2 tele/SONOFF_669964/BUTTON2 1 ENDON
+Rule2
+    ON RfReceived#RfKey=2 DO Publish2 cmnd/SONOFF_6AA2D9/Power 2 ENDON
+Rule3
+    ON RfReceived#RfKey=3 DO Publish2 cmnd/SONOFF_6AA2D9/Power 2 ENDON
+
+
+# Publish Command
+Publish2 cmnd/SONOFF_6AA2D9/Power 2
+
+#define TFT_CS D8
+#define TFT_DC D0
+#define TFT_MOSI D7
+#define TFT_CLK D5
+#define TFT_RST
+#define TFT_MISO D6
+
+### SPI Display Configuration
+GPIO12 - D6 - MISO
+GPIO13 - D7 - MOSI
+GPIO14 - D5 - SCLK
+GPIO15 - D8 - CS
+
+(MOSI=GPIO13, SCLK=GPIO14,CS=GPIO15)
+
+### bathroom LED Pin Mappings:
+
+GPIO00 - Button1
+GPIO05 - PWM 5 (Cold White)
+GPIO12 - PWM 2 (Green)
+GPIO13 - PWM 3 (Blue)
+GPIO13 - PWM 1 (Red)
+GPIO15 - PWM 4 (Warm White)
+
+### Longitude/Latitude/Altitude/Timezone
+Timezone -8
+Altitude 58
+Latitude 45.486717
+Longitude -122.6791734
+
+Backlog Timezone -8; Altitude 58; Latitude 45.486717; Longitude -122.6791734

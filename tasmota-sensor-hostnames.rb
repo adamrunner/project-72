@@ -1,0 +1,12 @@
+sensors = ["Garage_Heater",
+"Bathroom_Lights",
+"Kitchen_LEDs",
+"Plant_Lights",
+"Garage",
+"Front_Door_Switch",
+"Fridge",
+"Heater",
+"Plant_Light_1",
+"Bedroom",
+"Bathroom_Fan",
+"Outdoor_Sensor"]
