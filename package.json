@@ -5,7 +5,7 @@
     "@rails/webpacker": "3.5",
     "highcharts": "^6.1.1",
     "highcharts-vue": "^1.0.4",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "vue": "^2.5.17",
     "vue-loader": "14.2.2",
     "vue-template-compiler": "^2.5.17"
